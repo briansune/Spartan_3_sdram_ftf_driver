@@ -1,0 +1,81 @@
+INFO:sim:172 - Generating IP...
+Applying current project options...
+Finished applying current project options.
+WARNING:sim - Verilog simulation file type 'Behavioral' is not valid for this
+   core. Overriding with simulation file type 'Structural'.
+WARNING:sim - A core named 'tft_bk_light_cnt' already exists in the project.
+   Output products for this core may be overwritten.
+Resolving generics for 'tft_bk_light_cnt'...
+WARNING:sim - Verilog simulation file type 'Behavioral' is not valid for this
+   core. Overriding with simulation file type 'Structural'.
+WARNING:sim - A core named 'tft_bk_light_cnt' already exists in the project.
+   Output products for this core may be overwritten.
+Applying external generics to 'tft_bk_light_cnt'...
+Delivering associated files for 'tft_bk_light_cnt'...
+Generating implementation netlist for 'tft_bk_light_cnt'...
+INFO:sim - Pre-processing HDL files for 'tft_bk_light_cnt'...
+Running synthesis for 'tft_bk_light_cnt'
+Running ngcbuild...
+Writing VEO instantiation template for 'tft_bk_light_cnt'...
+WARNING:sim - Verilog simulation file type 'Behavioral' is not valid for this
+   core. Overriding with simulation file type 'Structural'.
+Writing Verilog structural simulation model for 'tft_bk_light_cnt'...
+WARNING:sim - Verilog simulation file type 'Behavioral' is not valid for this
+   core. Overriding with simulation file type 'Structural'.
+Delivered 3 files into directory
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt
+Delivered 1 file into directory
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt
+Generating ASY schematic symbol...
+INFO:sim:949 - Finished generation of ASY schematic symbol.
+Generating SYM schematic symbol for 'tft_bk_light_cnt'...
+Generating metadata file...
+Regenerating ISE project file for 'tft_bk_light_cnt'...
+Generating ISE project...
+XCO file found: tft_bk_light_cnt.xco
+XMDF file found: tft_bk_light_cnt_xmdf.tcl
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/core_resources.txt -view all -origin_type imported
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/gui_latency.txt -view all -origin_type imported
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt.asy -view all -origin_type imported
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt.ngc -view all -origin_type created
+Checking file
+"F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tm
+p/_cg/tft_bk_light_cnt.ngc" for project device match ...
+File
+"F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tm
+p/_cg/tft_bk_light_cnt.ngc" device information matches project device.
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt.sym -view all -origin_type imported
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt.v -view all -origin_type created
+INFO:HDLCompiler:1845 - Analyzing Verilog file
+   "F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt
+   /tmp/_cg/tft_bk_light_cnt.v" into library work
+INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
+Adding
+F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/src/tft_bk_light_cnt/tmp
+/_cg/tft_bk_light_cnt.veo -view all -origin_type imported
+INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
+   Please set the new top explicitly by running the "project set top" command.
+   To re-calculate the new top automatically, set the "Auto Implementation Top"
+   property to true.
+Top level has been set to "/tft_bk_light_cnt"
+Generating README file...
+Generating FLIST file...
+INFO:sim:948 - Finished FLIST file generation.
+Launching README viewer...
+Moving files to output directory...
+Finished moving files to output directory
+Wrote CGP file for project 'tft_bk_light_cnt'.

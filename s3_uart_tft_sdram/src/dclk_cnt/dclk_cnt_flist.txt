@@ -1,0 +1,16 @@
+# Output products list for <dclk_cnt>
+core_resources.txt
+dclk_cnt.asy
+dclk_cnt.gise
+dclk_cnt.ngc
+dclk_cnt.sym
+dclk_cnt.v
+dclk_cnt.veo
+dclk_cnt.xco
+dclk_cnt.xise
+dclk_cnt\doc\c_counter_binary_v11_0_readme.txt
+dclk_cnt\doc\c_counter_binary_v11_0_vinfo.html
+dclk_cnt\doc\ds215_counter.pdf
+dclk_cnt_flist.txt
+dclk_cnt_xmdf.tcl
+gui_latency.txt

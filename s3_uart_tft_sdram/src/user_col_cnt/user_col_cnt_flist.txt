@@ -1,0 +1,17 @@
+# Output products list for <user_col_cnt>
+_xmsgs\pn_parser.xmsgs
+core_resources.txt
+gui_latency.txt
+user_col_cnt.asy
+user_col_cnt.gise
+user_col_cnt.ngc
+user_col_cnt.sym
+user_col_cnt.v
+user_col_cnt.veo
+user_col_cnt.xco
+user_col_cnt.xise
+user_col_cnt\doc\c_counter_binary_v11_0_readme.txt
+user_col_cnt\doc\c_counter_binary_v11_0_vinfo.html
+user_col_cnt\doc\ds215_counter.pdf
+user_col_cnt_flist.txt
+user_col_cnt_xmdf.tcl

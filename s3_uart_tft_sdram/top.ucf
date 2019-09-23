@@ -1,0 +1,203 @@
+
+NET "sys_clk" TNM_NET = "sys_clk";
+TIMESPEC TS_sys_clk = PERIOD "sys_clk" 40 ns HIGH 50 %;
+
+
+
+
+NET "uart_rx" LOC = P18;
+NET "uart_tx" LOC = P21;
+
+
+NET "sys_clk" LOC = P56;
+NET "sys_nrst" LOC = P89;
+
+NET "sys_nrst" PULLUP;
+
+
+
+
+NET "R[0]" LOC = P22;
+NET "R[1]" LOC = P23;
+NET "R[2]" LOC = P25;
+NET "R[3]" LOC = P26;
+NET "R[4]" LOC = P43;
+NET "R[5]" LOC = P50;
+
+NET "G[0]" LOC = P51;
+NET "G[1]" LOC = P52;
+NET "G[2]" LOC = P53;
+NET "G[3]" LOC = P54;
+NET "G[4]" LOC = P58;
+NET "G[5]" LOC = P59;
+
+NET "B[0]" LOC = P74;
+NET "B[1]" LOC = P75;
+NET "B[2]" LOC = P76;
+NET "B[3]" LOC = P77;
+NET "B[4]" LOC = P81;
+NET "B[5]" LOC = P82;
+
+NET "DCLK" LOC = P83;
+NET "TFT_MODE" LOC = P85;
+NET "HSYNC" LOC = P86;
+NET "VSYNC" LOC = P87;
+NET "DE" LOC = P88;
+
+NET "PWM" LOC = P35;
+
+
+NET "sdram_ba[1]" LOC = P8;
+NET "sdram_ba[0]" LOC = P10;
+
+NET "sdram_dqm[0]" LOC = P20;
+NET "sdram_dqm[1]" LOC = P125;
+
+NET "sdram_dq[15]" LOC = P106;
+NET "sdram_dq[14]" LOC = P112;
+NET "sdram_dq[13]" LOC = P113;
+NET "sdram_dq[12]" LOC = P116;
+NET "sdram_dq[11]" LOC = P117;
+NET "sdram_dq[10]" LOC = P122;
+NET "sdram_dq[9]" LOC = P123;
+NET "sdram_dq[8]" LOC = P124;
+NET "sdram_dq[7]" LOC = P93;
+NET "sdram_dq[6]" LOC = P94;
+NET "sdram_dq[5]" LOC = P96;
+NET "sdram_dq[4]" LOC = P97;
+NET "sdram_dq[3]" LOC = P98;
+NET "sdram_dq[2]" LOC = P103;
+NET "sdram_dq[1]" LOC = P104;
+NET "sdram_dq[0]" LOC = P105;
+
+NET "sdram_addr[0]" LOC = P5;
+NET "sdram_addr[1]" LOC = P4;
+NET "sdram_addr[2]" LOC = P3;
+NET "sdram_addr[3]" LOC = P2;
+NET "sdram_addr[4]" LOC = P142;
+NET "sdram_addr[5]" LOC = P140;
+NET "sdram_addr[6]" LOC = P139;
+NET "sdram_addr[7]" LOC = P135;
+NET "sdram_addr[8]" LOC = P134;
+NET "sdram_addr[9]" LOC = P132;
+NET "sdram_addr[10]" LOC = P7;
+NET "sdram_addr[11]" LOC = P131;
+
+
+
+#####################################################
+#
+#####################################################
+
+NET "sdram_addr[11]" SLEW = FAST;
+NET "sdram_addr[10]" SLEW = FAST;
+NET "sdram_addr[9]" SLEW = FAST;
+NET "sdram_addr[8]" SLEW = FAST;
+NET "sdram_addr[7]" SLEW = FAST;
+NET "sdram_addr[6]" SLEW = FAST;
+NET "sdram_addr[5]" SLEW = FAST;
+NET "sdram_addr[4]" SLEW = FAST;
+NET "sdram_addr[3]" SLEW = FAST;
+NET "sdram_addr[2]" SLEW = FAST;
+NET "sdram_addr[1]" SLEW = FAST;
+NET "sdram_addr[0]" SLEW = FAST;
+
+NET "sdram_ba[1]" SLEW = FAST;
+NET "sdram_ba[0]" SLEW = FAST;
+
+
+#####################################################
+#
+#####################################################
+
+NET "sdram_cke" IOSTANDARD = LVCMOS33;
+NET "sdram_cas_n" IOSTANDARD = LVCMOS33;
+NET "sdram_clk" IOSTANDARD = LVCMOS33;
+NET "sdram_cs_n" IOSTANDARD = LVCMOS33;
+NET "sdram_ras_n" IOSTANDARD = LVCMOS33;
+NET "sdram_we_n" IOSTANDARD = LVCMOS33;
+
+NET "sdram_dq[15]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[14]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[13]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[12]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[11]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[10]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[9]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[8]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[7]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[6]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[5]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[4]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[3]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[2]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[1]" IOSTANDARD = LVCMOS33;
+NET "sdram_dq[0]" IOSTANDARD = LVCMOS33;
+
+NET "sdram_addr[11]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[10]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[9]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[8]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[7]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[6]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[5]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[4]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[3]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[2]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[1]" IOSTANDARD = LVCMOS33;
+NET "sdram_addr[0]" IOSTANDARD = LVCMOS33;
+
+NET "sdram_dqm[1]" IOSTANDARD = LVCMOS33;
+NET "sdram_dqm[0]" IOSTANDARD = LVCMOS33;
+
+NET "sdram_ba[1]" IOSTANDARD = LVCMOS33;
+NET "sdram_ba[0]" IOSTANDARD = LVCMOS33;
+
+
+NET "uart_rx" IOSTANDARD = LVCMOS33;
+NET "uart_tx" IOSTANDARD = LVCMOS33;
+
+NET "sys_clk" IOSTANDARD = LVCMOS33;
+NET "sys_nrst" IOSTANDARD = LVCMOS33;
+
+NET "PWM" IOSTANDARD = LVCMOS33;
+
+NET "TFT_MODE" IOSTANDARD = LVCMOS33;
+NET "DCLK" IOSTANDARD = LVCMOS33;
+NET "DE" IOSTANDARD = LVCMOS33;
+
+NET "HSYNC" IOSTANDARD = LVCMOS33;
+NET "VSYNC" IOSTANDARD = LVCMOS33;
+
+
+
+NET "R[5]" IOSTANDARD = LVCMOS33;
+NET "R[4]" IOSTANDARD = LVCMOS33;
+NET "R[3]" IOSTANDARD = LVCMOS33;
+NET "R[2]" IOSTANDARD = LVCMOS33;
+NET "R[1]" IOSTANDARD = LVCMOS33;
+NET "R[0]" IOSTANDARD = LVCMOS33;
+NET "G[5]" IOSTANDARD = LVCMOS33;
+NET "G[4]" IOSTANDARD = LVCMOS33;
+NET "G[3]" IOSTANDARD = LVCMOS33;
+NET "G[2]" IOSTANDARD = LVCMOS33;
+NET "G[1]" IOSTANDARD = LVCMOS33;
+NET "G[0]" IOSTANDARD = LVCMOS33;
+NET "B[5]" IOSTANDARD = LVCMOS33;
+NET "B[4]" IOSTANDARD = LVCMOS33;
+NET "B[3]" IOSTANDARD = LVCMOS33;
+NET "B[2]" IOSTANDARD = LVCMOS33;
+NET "B[1]" IOSTANDARD = LVCMOS33;
+NET "B[0]" IOSTANDARD = LVCMOS33;
+
+
+
+
+# PlanAhead Generated physical constraints 
+
+NET "sdram_cs_n" LOC = P14;
+NET "sdram_we_n" LOC = P17;
+NET "sdram_ras_n" LOC = P15;
+NET "sdram_clk" LOC = P126;
+NET "sdram_cke" LOC = P130;
+NET "sdram_cas_n" LOC = P16;

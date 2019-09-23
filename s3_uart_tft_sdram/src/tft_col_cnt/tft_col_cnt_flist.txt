@@ -1,0 +1,17 @@
+# Output products list for <tft_col_cnt>
+_xmsgs\pn_parser.xmsgs
+core_resources.txt
+gui_latency.txt
+tft_col_cnt.asy
+tft_col_cnt.gise
+tft_col_cnt.ngc
+tft_col_cnt.sym
+tft_col_cnt.v
+tft_col_cnt.veo
+tft_col_cnt.xco
+tft_col_cnt.xise
+tft_col_cnt\doc\c_counter_binary_v11_0_readme.txt
+tft_col_cnt\doc\c_counter_binary_v11_0_vinfo.html
+tft_col_cnt\doc\ds215_counter.pdf
+tft_col_cnt_flist.txt
+tft_col_cnt_xmdf.tcl

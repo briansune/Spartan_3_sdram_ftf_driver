@@ -1,0 +1,16 @@
+# Output products list for <hsync_cnt>
+core_resources.txt
+gui_latency.txt
+hsync_cnt.asy
+hsync_cnt.gise
+hsync_cnt.ngc
+hsync_cnt.sym
+hsync_cnt.v
+hsync_cnt.veo
+hsync_cnt.xco
+hsync_cnt.xise
+hsync_cnt\doc\c_counter_binary_v11_0_readme.txt
+hsync_cnt\doc\c_counter_binary_v11_0_vinfo.html
+hsync_cnt\doc\ds215_counter.pdf
+hsync_cnt_flist.txt
+hsync_cnt_xmdf.tcl
