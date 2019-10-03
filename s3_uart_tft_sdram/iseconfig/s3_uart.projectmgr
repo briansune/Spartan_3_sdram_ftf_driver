@@ -7,7 +7,10 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/top F:|github_projects|s3_test|s3_uart_ram_tft_ctrl|s3_uart|src|top.v/tft_ctrl_inst0 - tft_ctrl</ClosedNode>
          <ClosedNode>/top F:|github_projects|s3_test|s3_uart_ram_tft_ctrl|s3_uart|src|top.v/tft_ctrl_inst0 - tft_ctrl/sdram_ctrl1 - sdram_controller</ClosedNode>
+         <ClosedNode>/top F:|github_projects|s3_test|s3_uart_ram_tft_ctrl|s3_uart|src|top.v/tft_uart_ctrl_inst0 - tft_uart_ctrl</ClosedNode>
+         <ClosedNode>/top F:|github_projects|s3_test|s3_uart_ram_tft_ctrl|s3_uart|src|top.v/user_ctrl_inst0 - user_ctrl</ClosedNode>
          <ClosedNode>/top F:|github_projects|s3_test|s3_uart_ram_tft|s3_uart|src|top.v/tft_bk_lig_inst0 - tft_backlight</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
@@ -63,13 +66,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001c3000000010000000100000000000000000000000064ffffffff000000810000000000000001000001c30000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
@@ -80,15 +83,16 @@
          <ClosedNode>Implement Design/Place &amp; Route</ClosedNode>
          <ClosedNode>Implement Design/Translate</ClosedNode>
          <ClosedNode>Synthesize - XST</ClosedNode>
+         <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Manage Configuration Project (iMPACT)</SelectedItem>
+         <SelectedItem>Generate Programming File</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >2</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b2000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b20000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001c3000000010000000100000000000000000000000064ffffffff000000810000000000000001000001c30000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Manage Configuration Project (iMPACT)</CurrentItem>
+      <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>
@@ -105,20 +109,20 @@
       <CurrentItem/>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
-   <CurrentView>Implementation</CurrentView>
+   <CurrentView>Behavioral Simulation</CurrentView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
          <ClosedNode>/tb_top C:|Users|Briansune|Desktop|s3_test|s3_uart|s3_uart|sim|tb_top.v/DUT - top</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>tb_top (F:/github_projects/s3_test/s3_uart_ram_tft/s3_uart/sim/tb_top.v)</SelectedItem>
+         <SelectedItem>tb_top (F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/sim/tb_top.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001bc000000020000000000000000000000000200000064ffffffff000000810000000300000002000001bc0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001a8000000020000000000000000000000000200000064ffffffff000000810000000300000002000001a80000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>tb_top (F:/github_projects/s3_test/s3_uart_ram_tft/s3_uart/sim/tb_top.v)</CurrentItem>
+      <CurrentItem>tb_top (F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/sim/tb_top.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>

@@ -48,7 +48,7 @@ module top(
 	//////////////////////////////////////////////
 	
 	wire				pll_lock;
-	wire				sys_clk_25m;
+	//wire				sys_clk_25m;
 	wire				sys_clk_100m;
 	
 	wire	[3 : 0]		user_opcode;
@@ -75,7 +75,7 @@ module top(
 		.RST_IN				(~sys_nrst),
 		
 		.CLKIN_IBUFG_OUT	(),
-		.CLK0_OUT			(sys_clk_25m),
+		.CLK0_OUT			(),
 		.CLKFX_OUT			(sys_clk_100m),
 		.CLKFX180_OUT		(sdram_clk),
 		.LOCKED_OUT			(pll_lock)

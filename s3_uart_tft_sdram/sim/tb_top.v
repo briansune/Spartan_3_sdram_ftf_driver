@@ -2,6 +2,11 @@
 
 module tb_top;
 	
+	
+	wire PWM;
+	wire [5:0] R, G, B;
+	wire DCLK, HS, VS, DE;
+	
 	reg clk;
 	reg nrst;
 	
@@ -9,11 +14,64 @@ module tb_top;
 	
 	wire uart_tx_wire;
 	
+	wire TFT_MODE;
+	
+	/* SDRAM Hardware IO */
+	wire [11:0] addr;
+	wire [1:0] ba;
+	wire [15:0] dq;
+	wire cke;
+	wire cs_n;
+	wire ras_n;
+	wire cas_n;
+	wire we_n;
+	wire [1 : 0] dqm;
+	wire sdram_clk;
+	
 	top DUT(
 		.sys_nrst	(nrst),
 		.sys_clk	(clk),
+		
 		.uart_rx	(uart_rx),
-		.uart_tx	(uart_tx_wire)
+		.uart_tx	(uart_tx_wire),
+		
+		.PWM			(PWM),			// output  PWM_sig
+		
+		.TFT_MODE		(TFT_MODE),
+		
+		.DCLK			(DCLK),			// output  DCLK_sig
+		.R				(R),			// output [5:0] R_sig
+		.G				(G),			// output [5:0] G_sig
+		.B				(B),			// output [5:0] B_sig
+		
+		.HSYNC			(HS),			// output  HS_sig
+		.VSYNC			(VS),			// output  VS_sig
+		.DE				(DE),			// output  DE_sig
+		
+		.sdram_clk		(sdram_clk), 	// output  sdram_clk_sig
+		.sdram_addr		(addr),			// output [11:0] addr_sig
+		.sdram_ba		(ba),			// output [1:0] ba_sig
+		.sdram_dq		(dq),			// inout [15:0] dq_sig
+		.sdram_cke		(cke),			// output  cke_sig
+		.sdram_cs_n		(cs_n),			// output  cs_n_sig
+		.sdram_ras_n	(ras_n),		// output  ras_n_sig
+		.sdram_cas_n	(cas_n),		// output  cas_n_sig
+		.sdram_we_n		(we_n),			// output  we_n_sig
+		.sdram_dqm		(dqm)
+	);
+	
+	sdr sdram_model(
+		
+		.Dq			(dq),
+		.Addr		(addr),
+		.Ba			(ba),
+		.Clk		(sdram_clk),
+		.Cke		(cke),
+		.Cs_n		(cs_n),
+		.Ras_n		(ras_n),
+		.Cas_n		(cas_n),
+		.We_n		(we_n),
+		.Dqm		(dqm)
 	);
 	
 	always begin
@@ -81,11 +139,11 @@ module tb_top;
 		str_array_d[3] <= "_";
 		str_array_d[4] <= "L";
 		str_array_d[5] <= ":";
-		str_array_d[6] <= "0";
-		str_array_d[7] <= "0";
-		str_array_d[8] <= "0";
-		str_array_d[9] <= "0";
-		str_array_d[10] <= "7";
+		str_array_d[6] <= "5";
+		str_array_d[7] <= "D";
+		str_array_d[8] <= "B";
+		str_array_d[9] <= "F";
+		str_array_d[10] <= "F";
 		str_array_d[11] <= "\r";
 		str_array_d[12] <= "\n";
 	end
@@ -156,7 +214,7 @@ module tb_top;
 				#1000 uart_rx = 1'b1;
 			end
 			
-			#5000 uart_rx = 1'b1;
+			#300457 uart_rx = 1'b1;
 			
 			for(j = 0; j < 13; j = j + 1)begin
 				//#3000 uart_rx = 1'b1;
@@ -177,14 +235,14 @@ module tb_top;
 			
 			#5000 uart_rx = 1'b1;
 			
-			for(j = 0; j < 16; j = j + 1)begin
+			for(j = 0; j < 384000; j = j + 1)begin
 				//#3000 uart_rx = 1'b1;
 				#1000 uart_rx = 1'b0;
 				
 				for(i = 0; i < 8; i = i + 1)begin
 					#1000
 					
-					if(((8'h30+j) >> i) & 8'h01)begin
+					if(((j % 256) >> i) & 8'h01)begin
 						uart_rx = 1'b1;
 					end else begin
 						uart_rx = 1'b0;
@@ -195,23 +253,6 @@ module tb_top;
 			end
 			
 			#500000 uart_rx = 1'b1;
-			
-			for(j = 0; j < 7; j = j + 1)begin
-				//#3000 uart_rx = 1'b1;
-				#1000 uart_rx = 1'b0;
-				
-				for(i = 0; i < 8; i = i + 1)begin
-					#1000
-					
-					if((str_array[j] >> i) & 8'h01)begin
-						uart_rx = 1'b1;
-					end else begin
-						uart_rx = 1'b0;
-					end
-				end
-				
-				#1000 uart_rx = 1'b1;
-			end
 			
 		end join
 	end

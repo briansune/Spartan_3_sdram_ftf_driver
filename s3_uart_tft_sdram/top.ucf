@@ -193,7 +193,6 @@ NET "B[0]" IOSTANDARD = LVCMOS33;
 
 
 
-# PlanAhead Generated physical constraints 
 
 NET "sdram_cs_n" LOC = P14;
 NET "sdram_we_n" LOC = P17;
@@ -201,3 +200,46 @@ NET "sdram_ras_n" LOC = P15;
 NET "sdram_clk" LOC = P126;
 NET "sdram_cke" LOC = P130;
 NET "sdram_cas_n" LOC = P16;
+
+# PlanAhead Generated IO constraints 
+
+NET "sdram_dq[15]" SLEW = FAST;
+NET "sdram_dq[14]" SLEW = FAST;
+NET "sdram_dq[13]" SLEW = FAST;
+NET "sdram_dq[12]" SLEW = FAST;
+NET "sdram_dq[11]" SLEW = FAST;
+NET "sdram_dq[10]" SLEW = FAST;
+NET "sdram_dq[9]" SLEW = FAST;
+NET "sdram_dq[8]" SLEW = FAST;
+NET "sdram_dq[7]" SLEW = FAST;
+NET "sdram_dq[6]" SLEW = FAST;
+NET "sdram_dq[5]" SLEW = FAST;
+NET "sdram_dq[4]" SLEW = FAST;
+NET "sdram_dq[3]" SLEW = FAST;
+NET "sdram_dq[2]" SLEW = FAST;
+NET "sdram_dq[1]" SLEW = FAST;
+NET "sdram_dq[0]" SLEW = FAST;
+NET "R[5]" SLEW = FAST;
+NET "R[4]" SLEW = FAST;
+NET "R[3]" SLEW = FAST;
+NET "R[2]" SLEW = FAST;
+NET "R[1]" SLEW = FAST;
+NET "R[0]" SLEW = FAST;
+NET "B[5]" SLEW = FAST;
+NET "B[4]" SLEW = FAST;
+NET "B[3]" SLEW = FAST;
+NET "B[2]" SLEW = FAST;
+NET "B[1]" SLEW = FAST;
+NET "B[0]" SLEW = FAST;
+NET "G[5]" SLEW = FAST;
+NET "G[4]" SLEW = FAST;
+NET "G[3]" SLEW = FAST;
+NET "G[2]" SLEW = FAST;
+NET "G[1]" SLEW = FAST;
+NET "G[0]" SLEW = FAST;
+NET "VSYNC" PULLUP;
+NET "HSYNC" PULLUP;
+NET "DCLK" SLEW = FAST;
+NET "TFT_MODE" PULLUP;
+NET "sdram_dqm[1]" SLEW = FAST;
+NET "sdram_dqm[0]" SLEW = FAST;

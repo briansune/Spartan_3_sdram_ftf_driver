@@ -8,7 +8,6 @@ module tft_uart_ctrl(
 	
 	output	[3 : 0]		cmd_opcode,
 	output	[15 : 0]	cmd_data,
-	output				cmd_load,
 	
 	output				cmd_dat_update
 );
@@ -109,7 +108,6 @@ module tft_uart_ctrl(
 	
 	assign cmd_opcode = cmd_opcode_r;
 	assign cmd_data = cmd_data_r;
-	assign cmd_load = cmd_load_r;
 	
 	assign cmd_dat_update = cmd_dat_update_r;
 	
@@ -397,6 +395,8 @@ module tft_uart_ctrl(
 					
 					if(send_str == 3'd1)begin
 						cmd_dat_update_r <= 1'b1;
+					end else begin
+						cmd_dat_update_r <= 1'b0;
 					end
 					
 					if(send_str == 3'd1)begin

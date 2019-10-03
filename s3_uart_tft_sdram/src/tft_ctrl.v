@@ -43,7 +43,7 @@ module tft_ctrl(
 		//	TFT
 		//////////////////////////////////
 	reg wr_enable_start;
-	reg wr_enable_user;
+	reg sdram_wr_en;
 	
 		//////////////////////////////////
 		//	SDRAM
@@ -84,9 +84,9 @@ module tft_ctrl(
 	
 	wire data_user;
 	
-	wire dump_TV_case_a;
+	wire dump_TV_case;
 	
-	wire dump_TH_case_b;
+	wire dump_TH_case;
 	wire dump_data_inc;
 	wire dump_data_case;
 	
@@ -143,16 +143,24 @@ module tft_ctrl(
 	
 	assign {R,G,B} = {rd_data[15:11],rd_data[15],rd_data[10:5],rd_data[4:0],rd_data[4]};
 	
-	assign dump_TV_case_a = ( (TV >= 9'd23) && (TV < 9'd503) ) ? 1'b1 : 1'b0;
-	assign dump_TH_case_b = ( (TH >= 10'd45) && (TH < 10'd845) ) ? 1'b1 : 1'b0;
-	assign dump_data_inc = (dump_TV_case_a & dump_TH_case_b);
+	assign dump_TV_case = ( (TV >= 9'd23) & (TV < 9'd503) );
+	assign dump_TH_case = ( (TH >= 10'd45) & (TH < 10'd845) );
+	assign dump_data_inc = (dump_TV_case & dump_TH_case);
 	
+	wire read_ht;
+	wire bank_ht;
+	wire bank_vt;
 	
-	assign dump_data_case = (TH < 10'd43 || TH > 10'd847) | (rd_enable & !col_add[0] & col_add[1]) | !dump_TV_case_a ? 1'b1 : 1'b0;
+	assign read_ht = rd_enable & (!col_add[0] & col_add[1]) & ~dclk_clken;
+	
+	assign bank_ht = ( (TH < 10'd43) || (TH > 10'd847) ) ? 1'b1 : 1'b0;
+	assign bank_vt = ~dump_TV_case;
+	
+	assign dump_data_case = (bank_ht | read_ht | bank_vt);
 	
 	assign data_user = (startup) ? (dump_data_case & FIFO_full) : wr_enable_start;
 	
-	assign wr_enable = (startup) ? wr_enable_user : wr_enable_start;
+	assign wr_enable = sdram_wr_en;
 	
 	assign wr_data = FIFO_out;
 	
@@ -200,16 +208,16 @@ module tft_ctrl(
 	
 	always@(posedge clk or negedge rst)begin
 		if(!rst)begin
-			wr_enable_user <= 1'b0;
+			sdram_wr_en <= 1'b0;
 		end else begin
 			if(data_user)begin
 				if(!busy)begin
-					wr_enable_user <= 1'b1;
+					sdram_wr_en <= 1'b1;
 				end else begin
-					wr_enable_user <= 1'b0;
+					sdram_wr_en <= 1'b0;
 				end
 			end else begin
-				wr_enable_user <= 1'b0;
+				sdram_wr_en <= 1'b0;
 			end
 		end
 	end
@@ -256,7 +264,7 @@ module tft_ctrl(
 		if(!rst)begin
 			rd_enable <= 1'b0;
 		end else begin
-			if(addr_cnt_a & dump_TV_case_a)begin
+			if(addr_cnt_a & dump_TV_case)begin
 				if(TH == 10'd44)begin
 					rd_enable <= 1'b1;
 				end else if(TH == 10'd844)begin
@@ -270,7 +278,7 @@ module tft_ctrl(
 		if(!rst)begin
 			rd_enable_a <= 1'b0;
 		end else begin
-			if(dump_TV_case_a)begin
+			if(dump_TV_case)begin
 				if((TH > 10'd44 & TH < 10'd843) & col_add[0] & col_add[1] | TH == 10'd44)begin
 					rd_enable_a <= addr_cnt_a;
 				end else begin

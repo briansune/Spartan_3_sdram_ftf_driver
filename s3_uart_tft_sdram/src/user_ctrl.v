@@ -79,8 +79,8 @@ module user_ctrl(
 	assign user_col_ld = update_col_row_add | (col_cnt_end & col_cnt_en);
 	assign user_row_ld = update_col_row_add | (row_cnt_end & row_cnt_en);
 	
-	assign col_cnt_en = ((~row_col_inc | row_cnt_end) & startup_inc) | user_col_ld;
-	assign row_cnt_en = ((row_col_inc | col_cnt_end) & startup_inc) | user_row_ld;
+	assign col_cnt_en = ((~row_col_inc | row_cnt_end) & startup_inc) | update_col_row_add;
+	assign row_cnt_en = ((row_col_inc | col_cnt_end) & startup_inc) | update_col_row_add;
 	
 	user_col_cnt user_col_cnt_inst(
 		
@@ -107,8 +107,8 @@ module user_ctrl(
 	);
 	
 	initial begin
-		startup <= 1'b0;
-		//startup <= 1'b1;
+		//startup <= 1'b0;
+		startup <= 1'b1;
 	end
 	
 	always@(posedge clk)begin
