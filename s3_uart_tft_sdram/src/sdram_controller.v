@@ -31,7 +31,7 @@ module sdram_controller
 	
 	parameter CLK_FREQUENCY = 100,		// Mhz     
 	parameter REFRESH_TIME =  64,		// ms     (how often we need to refresh) 
-	parameter REFRESH_COUNT = 8192		// cycles (how many refreshes required per refresh time)
+	parameter REFRESH_COUNT = 4096		// cycles (how many refreshes required per refresh time)
 )
 (
 	/* Interface Definition */
@@ -205,7 +205,7 @@ module sdram_controller
 			refresh_cnt <= 10'b0;
 		end else begin
 			/* Handle refresh counter */
-			if(state == REF_NOP2 || (state == READ_ACT) || (state == WRIT_ACT))begin
+			if(state == REF_NOP2 || (state == READ_READ) || (state == WRIT_CAS))begin
 				refresh_cnt <= 10'b0;
 			end else begin
 				refresh_cnt <= refresh_cnt + 10'b1;
@@ -213,11 +213,11 @@ module sdram_controller
 		end
 	end
 	
-	always@(negedge clk or negedge rst_n)begin
+	always@(posedge clk or negedge rst_n)begin
 		if(!rst_n)begin
 			rd_data_r <= 64'b0;
 		end else begin
-			if(state == READ_NOP2)begin
+			if(state == READ_READ)begin
 				case(state_cnt[1 : 0])
 					2'd0: rd_data_r[48+:16] <= sdram_rd_data;
 					2'd1: rd_data_r[32+:16] <= sdram_rd_data;
@@ -420,37 +420,19 @@ module sdram_controller
 					end
 					
 					READ_CAS: begin
-						next = READ_READ;
-					end
-					
-					READ_READ: begin
 						next = READ_NOP2;
-						state_cnt_nxt = 4'd3;
 					end
 					
 					READ_NOP2: begin
-						next = IDLE;
-						state_cnt_nxt = 4'd2;
+						next = READ_READ;
+						state_cnt_nxt = 4'd3;
 					end
 					
-					/*READ_NOP2: begin
-						if(rd_enable)begin
-							next = READ_NOP3;
-							state_cnt_nxt = 4'd14;
-						end else begin
-							next = IDLE;
-						end
+					READ_READ: begin
+						next = READ_NOP3;
+						state_cnt_nxt = 4'd1;
 					end
 					
-					READ_NOP3: begin
-						if(rd_enable)begin
-							next = READ_ACT;
-							command_nxt = CMD_BACT;
-						end else begin
-							next = IDLE;
-						end
-					end*/
-
 					default: begin
 						next = IDLE;
 					end

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2019-10-03T22:49:45</DateModified>
+  <DateModified>2019-10-05T17:01:51</DateModified>
   <ModuleName>top</ModuleName>
   <SummaryTimeStamp>2019-10-03T13:07:53</SummaryTimeStamp>
   <SavedFilePath>F:/github_projects/s3_test/s3_uart_ram_tft_ctrl/s3_uart/iseconfig/top.xreport</SavedFilePath>

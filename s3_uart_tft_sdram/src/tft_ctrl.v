@@ -143,8 +143,8 @@ module tft_ctrl(
 	
 	assign {R,G,B} = {rd_data[15:11],rd_data[15],rd_data[10:5],rd_data[4:0],rd_data[4]};
 	
-	assign dump_TV_case = ( (TV >= 9'd23) & (TV < 9'd503) );
-	assign dump_TH_case = ( (TH >= 10'd45) & (TH < 10'd845) );
+	assign dump_TV_case = ( (TV >= 9'd23 && TV < 9'd503) ) ? 1'b1 : 1'b0;
+	assign dump_TH_case = ( (TH >= 10'd45 && TH < 10'd845) ) ? 1'b1 : 1'b0;
 	assign dump_data_inc = (dump_TV_case & dump_TH_case);
 	
 	wire read_ht;
@@ -153,7 +153,7 @@ module tft_ctrl(
 	
 	assign read_ht = rd_enable & (!col_add[0] & col_add[1]) & ~dclk_clken;
 	
-	assign bank_ht = ( (TH < 10'd43) || (TH > 10'd847) ) ? 1'b1 : 1'b0;
+	assign bank_ht = ( (TH < 10'd43 || TH > 10'd845) ) ? 1'b1 : 1'b0;
 	assign bank_vt = ~dump_TV_case;
 	
 	assign dump_data_case = (bank_ht | read_ht | bank_vt);
@@ -161,7 +161,6 @@ module tft_ctrl(
 	assign data_user = (startup) ? (dump_data_case & FIFO_full) : wr_enable_start;
 	
 	assign wr_enable = sdram_wr_en;
-	
 	assign wr_data = FIFO_out;
 	
 	
@@ -172,10 +171,6 @@ module tft_ctrl(
 	assign read_addr_cnt = rd_enable & addr_cnt_a;
 	
 	assign rd_ready = rd_enable & addr_cnt_a;
-	
-	
-	
-	
 	
 	
 	
@@ -279,7 +274,7 @@ module tft_ctrl(
 			rd_enable_a <= 1'b0;
 		end else begin
 			if(dump_TV_case)begin
-				if((TH > 10'd44 & TH < 10'd843) & col_add[0] & col_add[1] | TH == 10'd44)begin
+				if((TH > 10'd44 && TH < 10'd843) & col_add[0] & col_add[1] | TH == 10'd44)begin
 					rd_enable_a <= addr_cnt_a;
 				end else begin
 					rd_enable_a <= 1'b0;
