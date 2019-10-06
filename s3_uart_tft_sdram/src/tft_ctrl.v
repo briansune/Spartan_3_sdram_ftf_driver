@@ -153,7 +153,7 @@ module tft_ctrl(
 	
 	assign read_ht = rd_enable & (!col_add[0] & col_add[1]) & ~dclk_clken;
 	
-	assign bank_ht = ( (TH < 10'd43 || TH > 10'd845) ) ? 1'b1 : 1'b0;
+	assign bank_ht = ( (TH < 10'd44 || TH > 10'd845) ) ? 1'b1 : 1'b0;
 	assign bank_vt = ~dump_TV_case;
 	
 	assign dump_data_case = (bank_ht | read_ht | bank_vt);

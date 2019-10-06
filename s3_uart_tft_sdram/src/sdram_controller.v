@@ -31,7 +31,7 @@ module sdram_controller
 	
 	parameter CLK_FREQUENCY = 100,		// Mhz     
 	parameter REFRESH_TIME =  64,		// ms     (how often we need to refresh) 
-	parameter REFRESH_COUNT = 4096		// cycles (how many refreshes required per refresh time)
+	parameter REFRESH_COUNT = 8192		// cycles (how many refreshes required per refresh time)
 )
 (
 	/* Interface Definition */
@@ -205,10 +205,10 @@ module sdram_controller
 			refresh_cnt <= 10'b0;
 		end else begin
 			/* Handle refresh counter */
-			if(state == REF_NOP2 || (state == READ_READ) || (state == WRIT_CAS))begin
-				refresh_cnt <= 10'b0;
+			if(state == REF_NOP2 || (state == READ_NOP3) || (state == WRIT_NOP2))begin
+				refresh_cnt <= 10'd0;
 			end else begin
-				refresh_cnt <= refresh_cnt + 10'b1;
+				refresh_cnt <= refresh_cnt + 1'b1;
 			end
 		end
 	end

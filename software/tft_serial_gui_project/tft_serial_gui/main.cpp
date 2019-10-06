@@ -23,6 +23,8 @@ using namespace std;
 #define Combo_Cmd				7
 #define But_Send_Data			8
 
+#define Combo_Major				9
+
 
 HMENU hMenu;
 
@@ -71,13 +73,22 @@ void combobox_init(HWND hComboBox, int array_sel);
 void com_port_check(HWND hComboBox);
 void open_com_port(void);
 void close_com_port(void);
-void tft_test_port(void);
+
 
 void send_uart_str(char* str_uart, DWORD dNoOFBytestoWrite);
 void cmd_combo_sel(HWND hComboBox);
 
 void open_file(HWND);
+
+void tft_test_port(void);
+
 void send_data(void);
+
+void Cmd_Send(void);
+void cmd_to_tft(char cmd_no, int cmd_val);
+
+
+
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow) {
 
@@ -151,6 +162,10 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
 
 				case But_TFT_Test:
 					tft_test_port();
+					break;
+
+				case But_TFT_CMD_SEND:
+					Cmd_Send();
 					break;
 
 				case File_Menu_Exit:
@@ -482,7 +497,7 @@ void AddControls(HWND hWnd) {
 
 	CreateWindowW(
 		L"static",
-		L"Page Load",
+		L"Col Row Order",
 		WS_VISIBLE | WS_CHILD,
 		850, 515, 100, 20,
 		hWnd,
@@ -490,15 +505,15 @@ void AddControls(HWND hWnd) {
 	);
 
 	hEdit_add_inc = CreateWindowW(
-		L"edit",
-		L"0",
-		WS_VISIBLE | WS_CHILD | EM_LIMITTEXT | ES_NUMBER,
-		975, 515, 100, 20,
+		L"combobox",
+		NULL,
+		WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST | CBS_HASSTRINGS | WS_VSCROLL,
+		975, 515, 100, 400,
 		hWnd,
-		NULL, NULL, NULL
+		(HMENU)Combo_Major, NULL, NULL
 	);
 
-	SendMessage(hEdit_add_inc, EM_SETLIMITTEXT, 1, 0);
+	combobox_init(hEdit_add_inc, 4);
 
 	hFile_Sel = CreateWindowW(
 		L"static",
@@ -655,6 +670,10 @@ void combobox_init(HWND hComboBox, int array_sel) {
 		TEXT("Load Add Inc."),
 	};
 
+	TCHAR RowColMajor[][10] = {
+		TEXT("Col. Maj."), TEXT("Row Maj.")
+	};
+
 	switch (array_sel) {
 		case 0:
 
@@ -705,6 +724,20 @@ void combobox_init(HWND hComboBox, int array_sel) {
 		memset(&A, 0, sizeof(A));
 		for (k = 0; k < size_x; k += 1) {
 			wcscpy_s(A, sizeof(A) / sizeof(TCHAR), (TCHAR*)CommandList[k]);
+			SendMessage(hComboBox, (UINT)CB_ADDSTRING, 0, (LPARAM)A);
+		}
+		SendMessage(hComboBox, CB_SETCURSEL, 0, (LPARAM)0);
+
+		break;
+
+	case 4:
+
+		size_all = sizeof(RowColMajor);
+		size_x = size_all / sizeof(*RowColMajor);
+
+		memset(&A, 0, sizeof(A));
+		for (k = 0; k < size_x; k += 1) {
+			wcscpy_s(A, sizeof(A) / sizeof(TCHAR), (TCHAR*)RowColMajor[k]);
 			SendMessage(hComboBox, (UINT)CB_ADDSTRING, 0, (LPARAM)A);
 		}
 		SendMessage(hComboBox, CB_SETCURSEL, 0, (LPARAM)0);
@@ -914,6 +947,76 @@ void tft_test_port(void) {
 	}
 }
 
+void Cmd_Send(void) {
+
+	int cmd_sel = SendMessage(hComboBox_cmd, (UINT)CB_GETCURSEL, 0, 0);
+
+	int cmd_val = 0;
+	wchar_t text[10] = {0};
+
+	switch (cmd_sel) {
+
+		case 3:
+			GetWindowText(hEdit_pgdis, text, 10);
+			cmd_val = _wtoi(text);
+			cmd_to_tft('4', (cmd_val % 8));
+		break;
+
+		case 4:
+			GetWindowText(hEdit_lddis, text, 10);
+			cmd_val = _wtoi(text);
+			cmd_to_tft('5', (cmd_val % 8));
+			break;
+
+		case 5:
+			cmd_val = SendMessage(hEdit_add_inc, (UINT)CB_GETCURSEL, 0, 0);
+			cmd_to_tft('D', cmd_val);
+			break;
+	}
+}
+
+void cmd_to_tft(char cmd_no, int cmd_val) {
+	
+	char test_array[20];
+
+	sprintf_s(test_array, "TFT_C:%c,%04d\r\n", cmd_no, cmd_val);
+
+	send_uart_str(test_array, sizeof(test_array));
+
+	char SerialBuffer[20] = { 0 };
+	int i = 0;
+	DWORD NoBytesRead;
+	char TempChar;
+
+	do {
+		ReadFile(
+			serialHandle,		//Handle of the Serial port
+			&TempChar,			//Temporary character
+			sizeof(TempChar),	//Size of TempChar
+			&NoBytesRead,		//Number of bytes read
+			NULL
+		);
+
+		if (NoBytesRead > 0) {
+			SerialBuffer[i] = TempChar;// Store Tempchar into buffer
+			i++;
+		}
+	} while (NoBytesRead > 0);
+
+	if (strcmp(SerialBuffer, "OK\r\n") == 0) {
+		EnableWindow(hBut_tft_test, TRUE);
+		EnableWindow(hComboBox_cmd, TRUE);
+		EnableWindow(hBut_tft_cmd_send, TRUE);
+		port_ok = TRUE;
+	}
+	else {
+		EnableWindow(hBut_tft_test, FALSE);
+		EnableWindow(hComboBox_cmd, FALSE);
+		EnableWindow(hBut_tft_cmd_send, FALSE);
+		port_ok = FALSE;
+	}
+}
+
 void cmd_combo_sel(HWND hComboBox) {
 
 	int index_sel = SendMessage(hComboBox, (UINT)CB_GETCURSEL, 0, 0);
@@ -982,6 +1085,7 @@ void cmd_combo_sel(HWND hComboBox) {
 			EnableWindow(hEdit_rowe, FALSE);
 			EnableWindow(hEdit_pgdis, FALSE);
 			EnableWindow(hEdit_lddis, FALSE);
+			EnableWindow(hEdit_add_inc, FALSE);
 			break;
 	}
 }
