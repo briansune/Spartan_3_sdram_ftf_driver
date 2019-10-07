@@ -100,6 +100,8 @@ module tft_ctrl(
 	wire hcnt_clken;
 	wire vcnt_clken;
 	
+	reg auto_refresh;
+	
 	////////////////////////////////////////////////////////
 	//	instantiation
 	////////////////////////////////////////////////////////
@@ -107,7 +109,9 @@ module tft_ctrl(
 		//////////////////////////////////
 		//	SDRAM
 		//////////////////////////////////
-	sdram_controller sdram_ctrl1(
+	sdram_controller sdram_ctrl0(
+		
+		.auto_refresh	(auto_refresh),
 		
 		.rst_n			(rst),
 		.clk			(clk),
@@ -153,7 +157,7 @@ module tft_ctrl(
 	
 	assign read_ht = rd_enable & (!col_add[0] & col_add[1]) & ~dclk_clken;
 	
-	assign bank_ht = ( (TH < 10'd44 || TH > 10'd845) ) ? 1'b1 : 1'b0;
+	assign bank_ht = ( (TH < 10'd43 || TH > 10'd844) ) ? 1'b1 : 1'b0;
 	assign bank_vt = ~dump_TV_case;
 	
 	assign dump_data_case = (bank_ht | read_ht | bank_vt);
@@ -253,7 +257,21 @@ module tft_ctrl(
 		.q			(col_add)			// output [9:0] q_sig
 	);
 	
-	
+	always@(posedge clk or negedge rst)begin
+		if(!rst)begin
+			auto_refresh <= 1'b0;
+		end else begin
+			if(addr_cnt_a & dump_TV_case)begin
+				if(TH == 10'd42)begin
+					auto_refresh <= 1'b1;
+				end else begin
+					auto_refresh <= 1'b0;
+				end
+			end else begin
+				auto_refresh <= 1'b0;
+			end
+		end
+	end
 	
 	always@(posedge clk or negedge rst)begin
 		if(!rst)begin

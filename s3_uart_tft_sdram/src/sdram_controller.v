@@ -34,8 +34,8 @@ module sdram_controller
 	parameter REFRESH_COUNT = 8192		// cycles (how many refreshes required per refresh time)
 )
 (
-	/* Interface Definition */
-	/* HOST INTERFACE */
+	input							auto_refresh,
+	
 	input	[HADDR_WIDTH-1 : 0]		wr_addr,
 	input	[15 : 0]				wr_data,
 	input							wr_enable,
@@ -205,7 +205,7 @@ module sdram_controller
 			refresh_cnt <= 10'b0;
 		end else begin
 			/* Handle refresh counter */
-			if(state == REF_NOP2 || (state == READ_NOP3) || (state == WRIT_NOP2))begin
+			if(state == REF_NOP1 | state[4] | auto_refresh)begin
 				refresh_cnt <= 10'd0;
 			end else begin
 				refresh_cnt <= refresh_cnt + 1'b1;
@@ -315,15 +315,15 @@ module sdram_controller
 		
 		if (state == IDLE)begin
 			// Monitor for refresh or hold
-			if (refresh_cnt >= CYCLES_BETWEEN_REFRESH)begin
-				next = REF_PRE;
-				command_nxt = CMD_PALL;
-			end else if (rd_enable)begin
+			if (rd_enable)begin
 				next = READ_ACT;
 				command_nxt = CMD_BACT;
 			end else if (wr_enable)begin
 				next = WRIT_ACT;
 				command_nxt = CMD_BACT;
+			end else if (refresh_cnt > CYCLES_BETWEEN_REFRESH | auto_refresh)begin
+				next = REF_PRE;
+				command_nxt = CMD_REF;
 			end else begin
 				// HOLD
 				next = IDLE;
@@ -379,9 +379,10 @@ module sdram_controller
 					// REFRESH
 					REF_PRE: begin
 						next = REF_NOP1;
+						state_cnt_nxt = 4'd7;
 					end
 					
-					REF_NOP1: begin
+					/*REF_NOP1: begin
 						next = REF_REF;
 						command_nxt = CMD_REF;
 					end
@@ -389,7 +390,7 @@ module sdram_controller
 					REF_REF: begin
 						next = REF_NOP2;
 						state_cnt_nxt = 4'd7;
-					end
+					end*/
 					// REF_NOP2: default - IDLE
 
 					// WRITE
